@@ -15,7 +15,7 @@ try:
     s3.Bucket(BUCKET_NAME).download_file(KEY, 'user_policies.json')
 except botocore.exceptions.ClientError as e:
     if e.response['Error']['Code'] == '404':
-        print 'The object does not exist.'
+        print('The object does not exist.')
     else:
         raise Exception('An error occurred.')
 
@@ -32,12 +32,12 @@ try:
     with open('count.json', 'w') as outfile:
         json.dump(store, outfile)
 except IOError:
-    print 'Unable to create file'
+    print('Unable to create file')
 
 try:
     with open('count.json', 'rb') as upload:
         s3.Bucket(BUCKET_NAME).put_object(Key='count.json', Body=upload)
 except FileNotFoundError:
-    print 'Wrong file or file path'
+    print('Wrong file or file path')
 
 			
