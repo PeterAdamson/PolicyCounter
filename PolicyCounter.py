@@ -27,7 +27,7 @@ with open('user_policies.json') as json_data:
     jdata = json.load(json_data)
     for data in jdata['data']['users']['items']:
         for further in data['policies']['items']:
-            if 'FullAccess' in further.values()[0]:
+            if 'FullAccess' in list(further.values())[0]:
                 count += 1
 
 store = {'count': count}
