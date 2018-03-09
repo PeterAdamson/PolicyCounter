@@ -1,5 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+#author Peter Adamson
+#This script downloads a json file containing user policies from an s3 bucket,
+#then counts the number of policies containing the termn "FullAccess",
+#and then uploads that count in another json file to the same s3 bucket
 
 import boto3
 import botocore
@@ -39,5 +43,3 @@ try:
         s3.Bucket(BUCKET_NAME).put_object(Key='count.json', Body=upload)
 except FileNotFoundError:
     print('Wrong file or file path')
-
-			
