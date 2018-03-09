@@ -43,6 +43,6 @@ except IOError:
 
 try:
 	with open('count.json', 'rb') as upload:
-	s3.Bucket(BUCKET_NAME).put_object(Key='count.json', Body=upload)
+		s3.Bucket(BUCKET_NAME).put_object(Key='count.json', Body=upload)
 except FileNotFoundError:
 	print('Wrong file or file path')
