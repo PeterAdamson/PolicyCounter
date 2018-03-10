@@ -17,6 +17,7 @@ KEY = 'user_policies.json'
 s3 = boto3.resource('s3')
 count = 0
 
+#retrieve json file from bucket
 try:
 	s3.Bucket(BUCKET_NAME).download_file(KEY, 'user_policies.json')
 except botocore.exceptions.ClientError as e:
@@ -25,6 +26,7 @@ except botocore.exceptions.ClientError as e:
 	else:
 		raise Exception('An error occurred.')
 
+#process json file
 with open('user_policies.json') as json_data:
 	jdata = json.load(json_data)
 	for data in jdata['data']['users']['items']:
@@ -35,12 +37,14 @@ with open('user_policies.json') as json_data:
 
 store = {'count': count}
 
+#create new json file
 try:
 	with open('count.json', 'w') as outfile:
 		json.dump(store, outfile)
 except IOError:
 	print('Unable to create file')
 
+#upload json file to the bucket
 try:
 	with open('count.json', 'rb') as upload:
 		s3.Bucket(BUCKET_NAME).put_object(Key='count.json', Body=upload)
